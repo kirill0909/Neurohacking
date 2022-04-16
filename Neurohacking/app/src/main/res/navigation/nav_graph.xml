@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/list_fragment">
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="com.neuro.hacking.fragments.lists.CategoriesFragment"
+        android:label="Neurohacking"
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_listFragment_to_wordsFragment"
+            app:destination="@id/words_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/training_fragment"
+        android:name="com.neuro.hacking.fragments.training.TrainingFragment"
+        android:label="Training"
+        tools:layout="@layout/fragment_training" />
+    <fragment
+        android:id="@+id/words_fragment"
+        android:name="com.neuro.hacking.fragments.lists.WordsFragment"
+        android:label="List of Words"
+        tools:layout="@layout/fragment_words" >
+    </fragment>
+    <fragment
+        android:id="@+id/help_fragment"
+        android:name="com.neuro.hacking.fragments.help.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help" />
+</navigation>
