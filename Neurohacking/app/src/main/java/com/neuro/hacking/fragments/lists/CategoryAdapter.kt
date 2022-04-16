@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.ItemCategoryBinding
+import com.neuro.hacking.model.Category
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
-    private lateinit var categoriesList: MutableList<String>
+    private var categoriesList = emptyList<Category>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -20,13 +21,14 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val currentItem = categoriesList[position]
 
-        holder.textViewCategory.text = currentItem
+        holder.textViewCategory.text = currentItem.category
     }
 
     override fun getItemCount() = categoriesList.size
 
-    fun setData(categories: MutableList<String>) {
+    fun setData(categories: List<Category>) {
         this.categoriesList = categories
+        notifyDataSetChanged()
     }
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

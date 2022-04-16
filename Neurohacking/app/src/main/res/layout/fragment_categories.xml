@@ -27,13 +27,13 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_categories"
+        android:id="@+id/fab_add_categories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:contentDescription="@string/floatingButtonCategoryName"
+        android:contentDescription="@string/floating_button_category_name"
         android:src="@drawable/ic_add_category"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 

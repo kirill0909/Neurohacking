@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/add_category_dialog.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_categories.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_categorys.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_help.xml" value="0.35625" />
