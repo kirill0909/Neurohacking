@@ -9,6 +9,8 @@ import com.neuro.hacking.R
 import com.neuro.hacking.databinding.FragmentCategoriesBinding
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.javafaker.Faker
 
 class CategoriesFragment : Fragment() {
 
@@ -22,18 +24,23 @@ class CategoriesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
         //get binding
         binding = FragmentCategoriesBinding.bind(view)
-        //call method for listen to words button
-        toWordsButtonListener(binding)
+        //set adapter and layout manager
+        val adapter = CategoryAdapter()
+        adapter.setData(getFakerList(20))
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
 
-    //this method listen to words button
-    private fun toWordsButtonListener(binding: FragmentCategoriesBinding) {
-        //create listener
-        binding.toListWordsButton.setOnClickListener {
-            //navigate to words list
-            findNavController().navigate(R.id.action_listFragment_to_wordsFragment)
+    //this method return faker list
+    private fun getFakerList(num: Int): MutableList<String> {
+        var fakerList = mutableListOf<String>()
+        val faker = Faker.instance()
+        for(i in 0..num) {
+            fakerList.add(faker.name().name())
         }
+        return fakerList
+
     }
 
     //this method show notification

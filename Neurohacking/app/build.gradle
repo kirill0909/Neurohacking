@@ -71,5 +71,6 @@ dependencies {
     //Kotlin
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
-
+    //faker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
 }
