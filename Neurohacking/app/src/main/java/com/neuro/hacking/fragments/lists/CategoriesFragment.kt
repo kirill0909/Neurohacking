@@ -22,6 +22,7 @@ class CategoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoriesBinding
     private lateinit var mCategoryViewModel: CategoryViewModel
+    private val adapter by lazy { CategoryAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +35,6 @@ class CategoriesFragment : Fragment() {
         //Create Category view model
         mCategoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
         //set adapter and layout manager
-        val adapter = CategoryAdapter()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         //Observer for category list

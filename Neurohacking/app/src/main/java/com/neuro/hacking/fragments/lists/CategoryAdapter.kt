@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.ItemCategoryBinding
 import com.neuro.hacking.model.Category
+import androidx.recyclerview.widget.DiffUtil
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -26,9 +27,17 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 
     override fun getItemCount() = categoriesList.size
 
+    /*
     fun setData(categories: List<Category>) {
         this.categoriesList = categories
         notifyDataSetChanged()
+    }
+     */
+    fun setData(newCategoriesList: List<Category>) {
+        val diffUtil = MyDiffUtil(categoriesList, newCategoriesList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        categoriesList = newCategoriesList
+        diffResults.dispatchUpdatesTo(this)
     }
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
