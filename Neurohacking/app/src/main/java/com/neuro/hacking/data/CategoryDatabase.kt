@@ -4,9 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Database
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.neuro.hacking.model.Category
+import com.neuro.hacking.model.Word
 
-@Database(entities = [Category::class], version = 1, exportSchema = false)
+@Database(entities = [Category::class, Word::class], version = 1, exportSchema = false)
 abstract class CategoryDatabase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao
@@ -16,7 +19,7 @@ abstract class CategoryDatabase : RoomDatabase() {
         private var INSTANCE: CategoryDatabase? = null
         fun getDatabase(context: Context): CategoryDatabase {
             val tempInstance = INSTANCE
-            if(tempInstance != null) {
+            if (tempInstance != null) {
                 return tempInstance
             }
             synchronized(this) {
@@ -24,7 +27,8 @@ abstract class CategoryDatabase : RoomDatabase() {
                     context.applicationContext,
                     CategoryDatabase::class.java,
                     "neurohacking_database"
-                ).build()
+                )
+                    .build()
                 INSTANCE = instance
                 return instance
             }

@@ -22,8 +22,12 @@
     <fragment
         android:id="@+id/words_fragment"
         android:name="com.neuro.hacking.fragments.lists.WordsFragment"
-        android:label="List of Words"
+        android:label="{categoryName}"
         tools:layout="@layout/fragment_words" >
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            />
     </fragment>
     <fragment
         android:id="@+id/help_fragment"

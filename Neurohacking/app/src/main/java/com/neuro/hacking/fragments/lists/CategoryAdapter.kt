@@ -7,9 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.ItemCategoryBinding
 import com.neuro.hacking.model.Category
+import com.neuro.hacking.fragments.lists.CategoryClickListener
 import androidx.recyclerview.widget.DiffUtil
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private val listener: CategoryClickListener) :
+    RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    /*
+    interface CategoryClickListener {
+        fun onItemClick(position: Int)
+    }
+     */
 
     private var categoriesList = emptyList<Category>()
 
@@ -27,12 +35,6 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 
     override fun getItemCount() = categoriesList.size
 
-    /*
-    fun setData(categories: List<Category>) {
-        this.categoriesList = categories
-        notifyDataSetChanged()
-    }
-     */
     fun setData(newCategoriesList: List<Category>) {
         val diffUtil = MyDiffUtil(categoriesList, newCategoriesList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
@@ -40,9 +42,31 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
         diffResults.dispatchUpdatesTo(this)
     }
 
-    class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener, View.OnLongClickListener {
         private val binding = ItemCategoryBinding.bind(itemView)
 
         val textViewCategory = binding.textViewCategory
+
+        init {
+            itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            val position: Int = absoluteAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position)
+            }
+        }
+
+        override fun onLongClick(v: View?): Boolean {
+            val position: Int = absoluteAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemLongClickListener(position)
+                return true
+            }
+            return false
+        }
     }
 }
