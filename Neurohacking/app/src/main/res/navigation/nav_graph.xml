@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/list_fragment"
-        android:name="com.neuro.hacking.fragments.lists.CategoriesFragment"
+        android:name="com.neuro.hacking.fragments.lists.categories.CategoriesFragment"
         android:label="Neurohacking"
         tools:layout="@layout/fragment_categories" >
         <action
@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_training" />
     <fragment
         android:id="@+id/words_fragment"
-        android:name="com.neuro.hacking.fragments.lists.WordsFragment"
+        android:name="com.neuro.hacking.fragments.lists.words.WordsFragment"
         android:label="{categoryName}"
         tools:layout="@layout/fragment_words" >
         <argument

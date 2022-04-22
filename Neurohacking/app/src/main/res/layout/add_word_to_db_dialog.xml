@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text_add_word_to_db_native"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="top"
+        android:hint="@string/edit_text_add_word_to_db_native"
+        android:lines="1"
+        android:scrollbars="horizontal"
+        />
+
+    <EditText
+        android:id="@+id/edit_text_add_word_to_db_translation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="top"
+        android:hint="@string/edit_text_add_word_to_db_translation"
+        android:lines="1"
+        android:scrollbars="horizontal"
+        />
+
+</LinearLayout>

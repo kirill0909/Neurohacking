@@ -12,5 +12,6 @@ data class Word(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val word: String,
-    val translation: String
+    val translation: String,
+    val category: String
 ) : Parcelable

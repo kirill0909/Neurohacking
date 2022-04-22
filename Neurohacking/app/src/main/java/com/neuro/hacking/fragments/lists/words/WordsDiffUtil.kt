@@ -1,11 +1,11 @@
-package com.neuro.hacking.fragments.lists
+package com.neuro.hacking.fragments.lists.words
 
 import androidx.recyclerview.widget.DiffUtil
-import com.neuro.hacking.model.Category
+import com.neuro.hacking.model.Word
 
-class MyDiffUtil(
-    private val oldList: List<Category>,
-    private val newList: List<Category>
+class WordsDiffUtil(
+    private val oldList: List<Word>,
+    private val newList: List<Word>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -25,7 +25,7 @@ class MyDiffUtil(
             oldList[oldItemPosition].id != newList[newItemPosition].id -> {
                 false
             }
-            oldList[oldItemPosition].category != newList[newItemPosition].category -> {
+            oldList[oldItemPosition].word != newList[newItemPosition].word -> {
                 false
             }
             else -> true

@@ -16,17 +16,17 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/text_view_category"
+            android:id="@+id/text_view_word"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:ellipsize="end"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="start|center"
             android:paddingStart="5dp"
-            android:ellipsize="end"
             android:lines="1"
-            android:text="Category"
+            android:text="Word"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:foreground="?android:attr/selectableItemBackground"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/image_view_more_button"
             card_view:layout_constraintStart_toStartOf="parent"
