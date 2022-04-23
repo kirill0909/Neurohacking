@@ -187,7 +187,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
         activity?.menuInflater?.inflate(R.menu.search_menu, menu)
-        val search = menu.findItem(R.id.category_search)
+        val search = menu.findItem(R.id.search)
         val searchView = search.actionView as SearchView
         searchView.isSubmitButtonEnabled = true
         searchView.setOnQueryTextListener(this)

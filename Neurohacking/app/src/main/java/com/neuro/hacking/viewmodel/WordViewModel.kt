@@ -3,8 +3,10 @@ package com.neuro.hacking.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.neuro.hacking.data.AppDatabase
+import com.neuro.hacking.model.Category
 import com.neuro.hacking.model.Word
 import com.neuro.hacking.repository.WordRepository
 import kotlinx.coroutines.Dispatchers
@@ -40,6 +42,10 @@ class WordViewModel(application: Application, category: String) : AndroidViewMod
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteWord(word)
         }
+    }
+
+    fun searchWord(word: String): LiveData<List<Word>> {
+        return repository.searchWord(word).asLiveData()
     }
 
 }

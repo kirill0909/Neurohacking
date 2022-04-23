@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Database
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.neuro.hacking.model.Category
 import com.neuro.hacking.model.Word
+import android.util.Log
 
 @Database(entities = [Category::class, Word::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -13,16 +16,14 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun wordDao(): WordDao
 
-    /*
-    var MIGRATION_1_2: Migration = object : Migration(1, 2) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("CREATE TABLE word_table (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT, translation TEXT)")
-        }
-
-    }
-     */
 
     companion object {
+        private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("")
+                Log.d("AppDatabase", "The database has been update")
+            }
+        }
         @Volatile
         private var INSTANCE: AppDatabase? = null
         fun getDatabase(context: Context): AppDatabase {
@@ -36,6 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "neurohacking_database"
                 )
+                    .addMigrations()
                     .build()
                 INSTANCE = instance
                 return instance

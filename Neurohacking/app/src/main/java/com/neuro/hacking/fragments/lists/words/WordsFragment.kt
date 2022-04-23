@@ -3,15 +3,13 @@ package com.neuro.hacking.fragments.lists.words
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neuro.hacking.R
@@ -25,7 +23,7 @@ import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.WordViewModelFactory
 import java.lang.Exception
 
-class WordsFragment : Fragment(), WordClickListener {
+class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentWordsBinding
     private val adapter by lazy { WordAdapter(this) }
@@ -49,6 +47,8 @@ class WordsFragment : Fragment(), WordClickListener {
         mWordViewModel.wordsByCategory.observe(viewLifecycleOwner) { word ->
             adapter.setData(word)
         }
+
+        setHasOptionsMenu(true)
 
         fabAddWordListener(binding)
         return view
@@ -167,6 +167,41 @@ class WordsFragment : Fragment(), WordClickListener {
         addWordDialog.setNegativeButton("Cancel") { _, _ -> }
 
         addWordDialog.show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        activity?.menuInflater?.inflate(R.menu.search_menu, menu)
+        val search = menu.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(this)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null) {
+            searchWord(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if(query != null) {
+            searchWord(query)
+        }
+        return true
+    }
+
+    private fun searchWord(query: String) {
+        val searchQuery = "%$query%"
+
+        mWordViewModel.searchWord(searchQuery).observe(this) { list ->
+            list.let {
+                adapter.setData(it)
+            }
+        }
     }
 
     /*
