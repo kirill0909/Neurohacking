@@ -18,12 +18,14 @@ abstract class AppDatabase : RoomDatabase() {
 
 
     companion object {
+        /*
         private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("")
                 Log.d("AppDatabase", "The database has been update")
             }
         }
+         */
         @Volatile
         private var INSTANCE: AppDatabase? = null
         fun getDatabase(context: Context): AppDatabase {
@@ -37,7 +39,8 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "neurohacking_database"
                 )
-                    .addMigrations()
+                    .createFromAsset("database/AppDatabase")
+                    //.addMigrations()
                     .build()
                 INSTANCE = instance
                 return instance

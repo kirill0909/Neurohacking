@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.334" />
+        <entry key="app/src/main/res/drawable/splash_background.xml" value="0.334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/add_category_dialog.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/add_word_to_db_dialog.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/delete_category_dialog.xml" value="0.35625" />
