@@ -43,6 +43,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
 
         mCategoryViewModel.allCategories.observe(viewLifecycleOwner) { category ->
             adapter.setData(category)
+            //Log.d(TAG, category.toString())
         }
 
         setHasOptionsMenu(true)

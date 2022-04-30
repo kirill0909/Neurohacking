@@ -17,6 +17,7 @@ class WordViewModel(application: Application, category: String) : AndroidViewMod
     val allWords: LiveData<List<Word>>
     val wordsByCategory: LiveData<List<Word>>
     private val repository: WordRepository
+    lateinit var title: String
 
     init {
         val wordDao = AppDatabase.getDatabase(application).wordDao()

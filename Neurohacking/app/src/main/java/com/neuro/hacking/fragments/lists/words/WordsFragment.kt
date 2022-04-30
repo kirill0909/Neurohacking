@@ -48,6 +48,9 @@ class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListe
             adapter.setData(word)
         }
 
+        mWordViewModel.title = args.categoryName
+        activity?.title = mWordViewModel.title
+
         setHasOptionsMenu(true)
 
         fabAddWordListener(binding)

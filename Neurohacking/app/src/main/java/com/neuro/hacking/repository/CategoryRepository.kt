@@ -1,5 +1,6 @@
 package com.neuro.hacking.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.neuro.hacking.data.CategoryDao
 import com.neuro.hacking.model.Category

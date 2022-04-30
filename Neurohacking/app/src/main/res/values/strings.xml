@@ -12,6 +12,15 @@
     <string name="edit_text_update_word_dialog_native">Enter native for update</string>
     <string name="edit_text_update_word_dialog_translation">Enter translation for update</string>
     <string name="category_search">Search by category</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_your_word">Enter your word</string>
+    <string name="skip">Skip</string>
+    <string name="submit">Submit</string>
+    <string name="word_count">%d of %d words</string>
+    <string name="category">Category: %s</string>
+    <string name="incorrect">"Incorrect: %d"</string>
+    <string name="correct">"Correct: %d"</string>
+    <string name="score">Score: 0</string>
+    <string name="instructions">Enter the translation</string>
+    <string name="select_category">Select category</string>
+
 </resources>

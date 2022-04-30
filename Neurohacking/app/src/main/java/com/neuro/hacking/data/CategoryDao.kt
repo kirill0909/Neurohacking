@@ -16,6 +16,9 @@ interface CategoryDao {
     @Query("SELECT * FROM category_table ORDER BY category ASC")
     fun getAllCategories(): LiveData<List<Category>>
 
+    @Query("SELECT * FROM category_table ORDER BY category ASC")
+    suspend fun getCategories(): List<Category>
+
     /*
     *This method remove word by category from word table
     * it call when user remove whole category
