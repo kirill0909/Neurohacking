@@ -45,8 +45,8 @@ class WordViewModel(application: Application, category: String) : AndroidViewMod
         }
     }
 
-    fun searchWord(word: String): LiveData<List<Word>> {
-        return repository.searchWord(word).asLiveData()
+    fun searchWord(word: String, category: String): LiveData<List<Word>> {
+        return repository.searchWord(word, category).asLiveData()
     }
 
 }

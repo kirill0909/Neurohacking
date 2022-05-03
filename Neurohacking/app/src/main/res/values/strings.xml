@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Neurohacking</string>
     <string name="list_categories">Categories List</string>
-    <string name="trainig">Training</string>
+    <string name="training">Training</string>
     <string name="help">Help</string>
     <string name="floating_button_category_name">FAB</string>
     <string name="floating_button_word">FAB</string>
@@ -15,7 +15,9 @@
     <string name="enter_your_word">Enter your word</string>
     <string name="skip">Skip</string>
     <string name="submit">Submit</string>
-    <string name="word_count">%d of %d words</string>
+    <string name="try_again">Try again</string>
+    <string name="word_count">%d of</string>
+    <string name="number_of_words">%d words</string>
     <string name="category">Category: %s</string>
     <string name="incorrect">"Incorrect: %d"</string>
     <string name="correct">"Correct: %d"</string>

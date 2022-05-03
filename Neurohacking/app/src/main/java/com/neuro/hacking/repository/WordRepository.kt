@@ -23,8 +23,8 @@ class WordRepository(private val wordDao: WordDao, private val category: String)
         wordDao.deleteWord(word)
     }
 
-    fun searchWord(word: String): Flow<List<Word>> {
-        return wordDao.searchWord(word)
+    fun searchWord(word: String, category: String): Flow<List<Word>> {
+        return wordDao.searchWord(word, category)
     }
 
 }

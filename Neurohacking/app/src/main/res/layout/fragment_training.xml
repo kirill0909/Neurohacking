@@ -24,7 +24,20 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="3 of 10 words" />
+            tools:text="3 of " />
+
+        <TextView
+            android:id="@+id/tv_number_of_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/number_of_words"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_word_count"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text=" 24 words" />
 
         <TextView
             android:id="@+id/tv_category"
@@ -70,8 +83,7 @@
             android:id="@+id/tv_translation_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="translation word"
+            android:layout_marginTop="68dp"
             android:textSize="35sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"

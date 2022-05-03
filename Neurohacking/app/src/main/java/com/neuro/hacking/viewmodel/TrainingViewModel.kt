@@ -10,6 +10,7 @@ import com.neuro.hacking.model.Word
 import com.neuro.hacking.repository.TrainingRepository
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.text.capitalize
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -30,6 +31,10 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
     val selectedCategory: LiveData<String>
         get() = _selectedCategory
 
+    private var _numberOfWords = MutableLiveData<Int>(0)
+    val numberOfWords: LiveData<Int>
+        get() = _numberOfWords
+
     private var _wordCount = MutableLiveData<Int>(0)
     val wordCount: LiveData<Int>
         get() = _wordCount
@@ -42,9 +47,9 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
     val correct: LiveData<Int>
         get() = _correct
 
-    private var _word = MutableLiveData<String>()
-    val word: LiveData<String>
-        get() = _word
+    private var _currentWord = MutableLiveData<Word>()
+    val currentWord: LiveData<Word>
+        get() = _currentWord
 
     private val repository: TrainingRepository
     val title: String = "Training"
@@ -64,11 +69,15 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
         getDataFromDb()
         withContext(Main) {
             _selectedCategory.value = categories[0].category
-            _wordCount.value = getNumberWords(words)
+            _wordCount.value = 0
+            _numberOfWords.value = getNumberWords(_words)
             _incorrect.value = 0
             _correct.value = 0
-            _word.value = getRandomWord(_words, _selectedCategory.value!!)
-            //Log.d("TrainingViewModel", getRandomWord(_words, _selectedCategory.value!!))
+            try {
+                _currentWord.value = getRandomWord(_words)
+            }catch(e: NoSuchElementException) {
+                Log.d("TrainingViewModel", "Category ${_selectedCategory.value} is empty")
+            }
         }
     }
 
@@ -94,10 +103,11 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
     /*
     *This method return random word(translation) by category name
      */
-    private fun getRandomWord(words: List<Word>, category: String): String {
+    private fun getRandomWord(words: List<Word>): Word {
         val wordsByCategory = mutableListOf<Word>()
         words.forEach { if (it.category == _selectedCategory.value) wordsByCategory.add(it) }
-        return wordsByCategory.random().translation
+        wordsByCategory.shuffle()
+        return wordsByCategory.random()
     }
 
     /*
@@ -107,61 +117,106 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
         val dialog = AlertDialog.Builder(context)
             .setTitle("Select category")
             .setSingleChoiceItems(
-                categories.map { it.category }.toTypedArray(),
-                0
+                categories.map { it.category }.toTypedArray(), 0
             ) { dialog, which ->
                 _selectedCategory.value = categories[which].category
-                Log.d("TrainingViewModel", "You are selected ${_selectedCategory.value}")
-                //start new game
+                reinitializeData(
+                    categories[which].category, getNumberWords(_words), 0,
+                    0,
+                    0,
+                    getRandomWord(_words)
+                )
+
                 dialog.dismiss()
             }
         dialog.create().show()
     }
 
     /*
-    fun selectCategoryDialog(context: Context) {
-
-        val dialog = AlertDialog.Builder(context)
-            .setTitle("Select category")
-            .setSingleChoiceItems(categories.map { it.category }.toTypedArray(), 0) { dialog, which ->
-                _selectedCategory.value = categories[which].category
-                Log.d("TrainingViewModel", "You are selected ${_selectedCategory.value}")
-                //start new game
-                dialog.dismiss()
-            }
-        dialog.create().show()
-    }
-
-    /*
-    *This method get data from db use coroutine
+    *This method show final dialog
      */
-    private suspend fun getDataFromDb() {
-        withContext(Main) {
-            _categories = repository.getCategories()
-            _words = repository.getWords()
-            setDefaultTraining(_categories, _words)
+    fun finalDialog(context: Context) {
+        val dialog = AlertDialog.Builder(context)
+            .setTitle("Your results")
+            .setMessage(
+                "Category: ${_selectedCategory.value}\n" +
+                        "Total words: ${_numberOfWords.value}\n" +
+                        "Incorrect:${_incorrect.value}\n"
+            )
+
+            .setPositiveButton("Train again") { _, _ ->
+                Log.d("TrainingViewModel", "You tap on the play again")
+                selectCategoryDialog(context)
+            }
+            .setNegativeButton("Exit") { _, _ ->
+                //stop training
+            }
+        dialog.create().show()
+    }
+
+    private fun getNextWord() {
+        _currentWord.value = getRandomWord(_words)
+    }
+
+    /*
+    *re-initializes the  data to restart.
+     */
+    private fun reinitializeData(
+        selectedCategory: String,
+        numberOfWords: Int,
+        wordCount: Int,
+        incorrectValue: Int,
+        correctValue: Int,
+        currentWord: Word
+    ) {
+        _selectedCategory.value = selectedCategory//categories[which].category
+        _numberOfWords.value = numberOfWords//getNumberWords(_words)
+        _wordCount.value = wordCount//0
+        _incorrect.value = incorrectValue//0
+        _correct.value = correctValue//0
+        _currentWord.value = currentWord//getRandomWord(_words)
+    }
+
+    /*
+    *Returns true if the current word count is less then _numberOfWords.
+    * Update the next word.
+     */
+    fun nextWord(): Boolean {
+        return if (_wordCount.value!! < _numberOfWords.value!!) {
+            getNextWord()
+            true
+        } else {
+            return false
         }
     }
 
     /*
-    *This method set default data on the training page use coroutine
+    *This method check user input
      */
-    private fun setDefaultTraining(categories: List<Category>, words: List<Word>) {
-        _selectedCategory.value = categories[0].category
-        _wordCount.value = getNumberWords(words)
-        _incorrect.value = 0
-        _correct.value = 0
-        //Log.d("TrainingViewModel", _categories.toString())
-        //Log.d("TrainingViewModel", _wordCount.value.toString())
+    fun isUserWordCorrect(userWord: String): Boolean {
+        if (userWord.equals(_currentWord.value?.word, true)) {
+            inCreasePositiveIndicators()
+            return true
+        } else {
+            inCreaseNegativeIndicators()
+        }
+        return false
     }
 
     /*
-    *This method count number words in th words list with specific category
+    *This method increase indicators (_wordCount, _correct)
      */
-    private fun getNumberWords(words: List<Word>): Int {
-        var count = 0
-        words.forEach { if(it.category == _selectedCategory.value) count++ }
-        return count
+    private fun inCreasePositiveIndicators() {
+        _wordCount.value = (_wordCount.value)?.plus(1)
+        _correct.value = (_correct.value)?.plus(1)
     }
+
+    /*
+    *This method increase indicators (_incorrect)
      */
+    private fun inCreaseNegativeIndicators() {
+        _incorrect.value = (_incorrect.value)?.plus(1)
+    }
+
+
 }

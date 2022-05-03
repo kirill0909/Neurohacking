@@ -18,8 +18,8 @@ interface WordDao {
     @Query("SELECT * FROM word_table WHERE category = :category ORDER BY word ASC")
     fun getWordsByCategory(category: String): LiveData<List<Word>>
 
-    @Query("SELECT * FROM word_table WHERE word LIKE :word")
-    fun searchWord(word: String): Flow<List<Word>>
+    @Query("SELECT * FROM word_table WHERE (word LIKE :word) AND (category = :category)")
+    fun searchWord(word: String, category: String): Flow<List<Word>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addWord(word: Word)

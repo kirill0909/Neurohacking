@@ -185,22 +185,22 @@ class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListe
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if(query != null) {
-            searchWord(query)
+            searchWord(query, args.categoryName)
         }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
         if(query != null) {
-            searchWord(query)
+            searchWord(query, args.categoryName)
         }
         return true
     }
 
-    private fun searchWord(query: String) {
+    private fun searchWord(query: String, category: String) {
         val searchQuery = "%$query%"
 
-        mWordViewModel.searchWord(searchQuery).observe(this) { list ->
+        mWordViewModel.searchWord(searchQuery, category).observe(this) { list ->
             list.let {
                 adapter.setData(it)
             }

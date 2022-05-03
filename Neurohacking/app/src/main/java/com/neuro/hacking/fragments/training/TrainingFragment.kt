@@ -1,15 +1,14 @@
 package com.neuro.hacking.fragments.training
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.neuro.hacking.R
 import com.neuro.hacking.viewmodel.TrainingViewModel
 import com.neuro.hacking.databinding.FragmentTrainingBinding
+import android.util.Log
 
 class TrainingFragment : Fragment() {
 
@@ -25,14 +24,16 @@ class TrainingFragment : Fragment() {
 
         mTrainingViewModel = ViewModelProvider(this)[TrainingViewModel::class.java]
 
-        //Log.d("TrainingFragment", mTrainingViewModel.categories.toString())
-
         mTrainingViewModel.selectedCategory.observe(viewLifecycleOwner) { category ->
             binding.tvCategory.text = getString(R.string.category, category)
         }
 
         mTrainingViewModel.wordCount.observe(viewLifecycleOwner) { wordCount ->
-            binding.tvWordCount.text = getString(R.string.word_count, 0, wordCount)
+            binding.tvWordCount.text = getString(R.string.word_count, wordCount)
+        }
+
+        mTrainingViewModel.numberOfWords.observe(viewLifecycleOwner) { numberOfWords ->
+            binding.tvNumberOfWords.text = getString(R.string.number_of_words, numberOfWords)
         }
 
         mTrainingViewModel.incorrect.observe(viewLifecycleOwner) { incorrect ->
@@ -43,14 +44,64 @@ class TrainingFragment : Fragment() {
             binding.tvCorrect.text = getString(R.string.correct, correct)
         }
 
-        mTrainingViewModel.word.observe(viewLifecycleOwner) { word ->
-            binding.tvTranslationWord.text = word
+        mTrainingViewModel.currentWord.observe(viewLifecycleOwner) { word ->
+            binding.tvTranslationWord.text = word.translation
         }
 
         activity?.title = mTrainingViewModel.title
 
+        binding.submitButton.setOnClickListener { onSubmitButton() }
+        binding.skipButton.setOnClickListener { onSkipButton() }
+        binding.tvTranslationWord.setOnClickListener { showHint() }
+
         setHasOptionsMenu(true)
         return view
+    }
+
+    /*
+    *This method listen submit button
+     */
+    private fun onSubmitButton() {
+        val userWord = binding.textInputEditText.text.toString().trim()
+        if (mTrainingViewModel.isUserWordCorrect(userWord)) {
+            setErrorTextField(false)
+            if (!mTrainingViewModel.nextWord()) {
+                mTrainingViewModel.finalDialog(requireContext())
+            }
+        } else {
+            setErrorTextField(true)
+        }
+    }
+
+    /*
+    *This method listen skip button
+     */
+    private fun onSkipButton() {
+        if (mTrainingViewModel.nextWord()) {
+            setErrorTextField(false)
+        } else {
+            mTrainingViewModel.finalDialog(requireContext())
+        }
+    }
+
+    /*
+    * Sets and resets the text field error status.
+    */
+    private fun setErrorTextField(error: Boolean) {
+        if (error) {
+            binding.edNativeWord.isErrorEnabled = true
+            binding.edNativeWord.error = getString(R.string.try_again)
+        } else {
+            binding.edNativeWord.isErrorEnabled = false
+            binding.textInputEditText.text = null
+        }
+    }
+
+    /*
+    *This method show hint when user tap on the word
+     */
+    private fun showHint() {
+        toast(mTrainingViewModel.currentWord.value?.word.toString())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

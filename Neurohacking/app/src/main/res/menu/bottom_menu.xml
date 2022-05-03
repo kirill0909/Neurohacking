@@ -9,7 +9,7 @@
     <item
         android:id="@+id/training_fragment"
         android:icon="@drawable/ic_training"
-        android:title="@string/trainig"/>
+        android:title="@string/training"/>
 
     <item
         android:id="@+id/help_fragment"
