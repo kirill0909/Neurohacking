@@ -73,11 +73,9 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
             _numberOfWords.value = getNumberWords(_words)
             _incorrect.value = 0
             _correct.value = 0
-            try {
-                _currentWord.value = getRandomWord(_words)
-            }catch(e: NoSuchElementException) {
-                Log.d("TrainingViewModel", "Category ${_selectedCategory.value} is empty")
-            }
+            _currentWord.value = getRandomWord(_words)
+
+
         }
     }
 
@@ -105,9 +103,17 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
      */
     private fun getRandomWord(words: List<Word>): Word {
         val wordsByCategory = mutableListOf<Word>()
+        var word: Word
         words.forEach { if (it.category == _selectedCategory.value) wordsByCategory.add(it) }
         wordsByCategory.shuffle()
-        return wordsByCategory.random()
+        try {
+            word = wordsByCategory.random()
+            return word
+        }catch(e: NoSuchElementException) {
+            Log.d("TrainingViewModel", "Collection ${_selectedCategory} is empty")
+        }
+        word = Word(0, "", "The category \"${_selectedCategory.value.toString()}\" is empty", "")
+        return word
     }
 
     /*
