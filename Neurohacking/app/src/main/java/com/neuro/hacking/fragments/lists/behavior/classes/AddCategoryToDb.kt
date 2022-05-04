@@ -1,10 +1,9 @@
 package com.neuro.hacking.fragments.lists.behavior.classes
 
-import com.neuro.hacking.fragments.lists.behavior.interfaces.AddToDbBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBehavior
 import android.content.Context
 import android.content.DialogInterface
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -16,15 +15,16 @@ import com.neuro.hacking.model.Category
 import java.util.*
 import com.neuro.hacking.viewmodel.CategoryViewModel
 
-class AddCategoryToDb : AddToDbBehavior {
+class AddCategoryToDb : AddCategoryToDbBehavior {
 
     private lateinit var addCategoryDialogBinding: AddCategoryDialogBinding
 
     /*
       *this method show alert dialog and add category to db
      */
-    override fun addToDb(context: Context, categoryViewModel: CategoryViewModel, view: View) {
+    override fun addCategoryToDb(context: Context, categoryViewModel: CategoryViewModel, view: View) {
         addCategoryDialogBinding = AddCategoryDialogBinding.inflate(LayoutInflater.from(context))
+
 
         val dialog = AlertDialog.Builder(context)
             .setTitle("Creating a new category")

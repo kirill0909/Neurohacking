@@ -1,13 +1,10 @@
 package com.neuro.hacking.fragments.lists.categories
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import android.widget.EditText
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.FragmentCategoriesBinding
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
@@ -16,22 +13,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.CategoryViewModel
-import java.util.*
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 import com.neuro.hacking.fragments.lists.ItemWorker
 import com.neuro.hacking.fragments.lists.behavior.classes.AddCategoryToDb
+import com.neuro.hacking.fragments.lists.behavior.classes.RemoveCategory
 import com.neuro.hacking.fragments.lists.behavior.classes.UpdateCategory
-import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateBehavior
-import com.neuro.hacking.fragments.lists.behavior.interfaces.AddToDbBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateCategoryBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.RemoveCategoryBehavior
 
 class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentCategoriesBinding
     lateinit var mCategoryViewModel: CategoryViewModel
     private val adapter by lazy { CategoryAdapter(this) }
-    override var addToDbBehavior: AddToDbBehavior = AddCategoryToDb()
-    override var updateBehavior: UpdateBehavior = UpdateCategory()
+    override var addCategoryToDbBehavior: AddCategoryToDbBehavior = AddCategoryToDb()
+    override var updateCategoryBehavior: UpdateCategoryBehavior = UpdateCategory()
+    override var removeCategoryBehavior: RemoveCategoryBehavior = RemoveCategory()
     private val TAG = "CategoriesFragment"
 
     override fun onCreateView(
@@ -56,10 +55,6 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     /*
         *this method listen fab add button
@@ -89,11 +84,11 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.context_delete -> {
-                    deleteCategoryDialog(category)
+                    //deleteCategoryDialog(category)
+                    performRemove(requireContext(), category, mCategoryViewModel, requireView())
                     true
                 }
                 R.id.context_update -> {
-                    //updateCategoryDialog(category)
                     performUpdate(requireContext(), category, mCategoryViewModel, requireView())
                     true
                 }
@@ -115,33 +110,7 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
         }
     }
 
-    /*
-    *this method to rename category
-     */
-    private fun updateCategoryDialog(oldCategory: Category) {
-        val dialogView = layoutInflater.inflate(R.layout.update_category_dialog, null)
-        val editText = dialogView.findViewById(R.id.et_update_category_dialog) as EditText
-        editText.setText(oldCategory.category)
-        val updateCategoryDialog = AlertDialog.Builder(requireContext())
-        updateCategoryDialog.setTitle("Update Category \"${oldCategory.category}\"")
-        updateCategoryDialog.setView(dialogView)
 
-        updateCategoryDialog.setPositiveButton("Update") { _, _ ->
-            val categoryName = editText.text.toString().trim()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            if (checkInput(categoryName)) {
-                val category = Category(oldCategory.id, categoryName)
-                mCategoryViewModel.updateCategory(category)
-                mCategoryViewModel.updateWordByCategoryName(categoryName, oldCategory.category)
-                showSnackBar("The Category \"${category.category}\" has been updated", requireView())
-            } else {
-                toast("The category name cannot be empty")
-            }
-        }
-        updateCategoryDialog.setNegativeButton("Cancel") { _, _ -> }
-
-        updateCategoryDialog.show()
-    }
     /*
     *This method show alert dialog before category removing
      */
@@ -162,7 +131,6 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
         activity?.menuInflater?.inflate(R.menu.search_menu, menu)
@@ -175,14 +143,14 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if(query != null) {
+        if (query != null) {
             searchCategory(query)
         }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if(query != null) {
+        if (query != null) {
             searchCategory(query)
         }
         return true
@@ -199,13 +167,6 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
     }
 
     /*
-                *this method check user input
-             */
-    private fun checkInput(categoryName: String): Boolean {
-        return !(TextUtils.isEmpty(categoryName))
-    }
-
-    /*
         *this method show snackBar
      */
     private fun showSnackBar(message: String, view: View) {
@@ -214,8 +175,9 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
 
     /*
         *this method show notification
-     */
+
     private fun toast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+     */
 }

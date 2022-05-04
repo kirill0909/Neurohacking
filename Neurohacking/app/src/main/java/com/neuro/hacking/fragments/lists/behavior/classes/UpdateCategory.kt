@@ -1,6 +1,6 @@
 package com.neuro.hacking.fragments.lists.behavior.classes
 
-import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateCategoryBehavior
 import android.util.Log
 import android.content.Context
 import android.content.DialogInterface
@@ -16,18 +16,16 @@ import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.CategoryViewModel
 import java.util.*
 
-class UpdateCategory : UpdateBehavior {
+class UpdateCategory : UpdateCategoryBehavior {
 
     private lateinit var updateCategoryDialogBinding: UpdateCategoryDialogBinding
 
-    override fun update(
+    override fun updateCategory(
         context: Context,
         oldCategory: Category,
         categoryViewModel: CategoryViewModel,
         view: View
     ) {
-        //realization
-        Log.d("UpdateCategory", "update() from UpdateCategory")
         updateCategoryDialogBinding =
             UpdateCategoryDialogBinding.inflate(LayoutInflater.from(context))
 
@@ -49,8 +47,11 @@ class UpdateCategory : UpdateBehavior {
                 if (checkInput(newCategory)) {
                     val category = Category(oldCategory.id, newCategory)
                     categoryViewModel.updateCategory(category)
-                    categoryViewModel.updateWordByCategoryName(category.category, oldCategory.category)
-                    showSnackBar("Category \"${category.category}\" was successfully updated",view)
+                    categoryViewModel.updateWordByCategoryName(
+                        category.category,
+                        oldCategory.category
+                    )
+                    showSnackBar("Category \"${category.category}\" was successfully updated", view)
                 } else {
                     updateCategoryDialogBinding.etUpdateCategoryDialog.error = "Value is empty"
                     return@setOnClickListener
