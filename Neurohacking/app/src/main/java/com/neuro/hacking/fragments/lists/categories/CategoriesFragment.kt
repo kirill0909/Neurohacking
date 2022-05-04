@@ -21,12 +21,16 @@ import com.neuro.hacking.viewmodel.CategoryViewModel
 import java.util.*
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
+import com.neuro.hacking.fragments.lists.ItemWorker
+import com.neuro.hacking.fragments.lists.behavior.classes.AddCategoryToDb
+import com.neuro.hacking.fragments.lists.behavior.interfaces.AddToDbBehavior
 
-class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQueryTextListener {
+class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentCategoriesBinding
-    private lateinit var mCategoryViewModel: CategoryViewModel
+    lateinit var mCategoryViewModel: CategoryViewModel
     private val adapter by lazy { CategoryAdapter(this) }
+    override var addToDbBehavior: AddToDbBehavior = AddCategoryToDb()
     private val TAG = "CategoriesFragment"
 
     override fun onCreateView(
@@ -43,7 +47,6 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
 
         mCategoryViewModel.allCategories.observe(viewLifecycleOwner) { category ->
             adapter.setData(category)
-            //Log.d(TAG, category.toString())
         }
 
         setHasOptionsMenu(true)
@@ -62,7 +65,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
      */
     private fun fabAddButtonListener(binding: FragmentCategoriesBinding) {
         binding.fabAddCategories.setOnClickListener {
-            insertCategoryToDbDialog()
+            performAdd(requireContext(), mCategoryViewModel, requireView())
         }
     }
 
@@ -71,8 +74,6 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
     * Navigate to list of words
      */
     override fun onItemClick(category: Category) {
-        //toast("${mCategoryViewModel.allCategories.value?.get(position)?.category}")
-        //val categoryName = mCategoryViewModel.allCategories.value?.get(position)?.category
         val directions =
             CategoriesFragmentDirections.actionListFragmentToWordsFragment(category.category)
         findNavController().navigate(directions)
@@ -158,32 +159,7 @@ class CategoriesFragment : Fragment(), CategoryClickListener, SearchView.OnQuery
         deleteCategoryDialog.show()
     }
 
-    /*
-      *this method show alert dialog and add category to db
-     */
-    private fun insertCategoryToDbDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.add_category_dialog, null)
-        val editText = dialogView.findViewById(R.id.edit_text_add_category_dialog) as EditText
-        val addCategoryDialog = AlertDialog.Builder(requireContext())
-        addCategoryDialog.setTitle("Enter new category name.")
-        //addCategoryDialog.setMessage("Enter new category name.")
-        addCategoryDialog.setView(dialogView)
 
-        addCategoryDialog.setPositiveButton("Add") { _, _ ->
-            val categoryName = editText.text.toString().trim()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-            if (checkInput(categoryName)) {
-                val category = Category(0, categoryName)
-                mCategoryViewModel.addCategory(category)
-                showSnackBar("Category \"${category.category}\" was successfully created", requireView())
-            } else {
-                toast("The category name cannot be empty")
-            }
-        }
-        addCategoryDialog.setNegativeButton("Cancel") { _, _ -> }
-
-        addCategoryDialog.show()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
