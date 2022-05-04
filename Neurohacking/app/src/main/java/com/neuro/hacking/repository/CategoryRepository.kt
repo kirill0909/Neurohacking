@@ -27,8 +27,8 @@ class CategoryRepository(private val categoryDao: CategoryDao, private val wordD
         categoryDao.deleteWordByCategoryName(category)
     }
 
-    suspend fun updateWordByCategoryName(oldCategory: String, newCategory: String) {
-        categoryDao.updateWordByCategoryName(oldCategory, newCategory)
+    suspend fun updateWordByCategoryName(newCategory: String, oldCategory: String) {
+        categoryDao.updateWordByCategoryName(newCategory, oldCategory)
     }
 
     fun searchCategory(category: String): Flow<List<Category>> {

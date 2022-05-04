@@ -5,8 +5,8 @@
     <string name="help">Help</string>
     <string name="floating_button_category_name">FAB</string>
     <string name="floating_button_word">FAB</string>
-    <string name="edit_text_add_category_dialog">Enter new category name</string>
-    <string name="edit_text_update_category_dialog">Update category name</string>
+    <string name="edit_text_add_category_dialog">Enter a new category name</string>
+    <string name="et_update_category_dialog">Update category name</string>
     <string name="edit_text_add_word_to_db_native">Enter a word in native language</string>
     <string name="edit_text_add_word_to_db_translation">Enter the translation</string>
     <string name="edit_text_update_word_dialog_native">Enter native for update</string>

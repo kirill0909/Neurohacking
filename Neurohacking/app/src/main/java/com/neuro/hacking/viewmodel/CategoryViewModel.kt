@@ -49,9 +49,9 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun updateWordByCategoryName(oldCategory: String, newCategory: String) {
+    fun updateWordByCategoryName(newCategory: String, oldCategory: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateWordByCategoryName(oldCategory, newCategory)
+            repository.updateWordByCategoryName(newCategory, oldCategory)
         }
     }
 

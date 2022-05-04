@@ -24,7 +24,6 @@ class AddCategoryToDb : AddToDbBehavior {
       *this method show alert dialog and add category to db
      */
     override fun addToDb(context: Context, categoryViewModel: CategoryViewModel, view: View) {
-        Log.d("AddCategoryToDb", "addToDb() from AddCategoryToDb was called")
         addCategoryDialogBinding = AddCategoryDialogBinding.inflate(LayoutInflater.from(context))
 
         val dialog = AlertDialog.Builder(context)

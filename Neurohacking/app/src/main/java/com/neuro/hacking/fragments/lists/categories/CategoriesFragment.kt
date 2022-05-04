@@ -1,11 +1,9 @@
 package com.neuro.hacking.fragments.lists.categories
 
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.EditText
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.FragmentCategoriesBinding
@@ -23,6 +21,8 @@ import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
 import com.neuro.hacking.fragments.lists.ItemWorker
 import com.neuro.hacking.fragments.lists.behavior.classes.AddCategoryToDb
+import com.neuro.hacking.fragments.lists.behavior.classes.UpdateCategory
+import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddToDbBehavior
 
 class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
@@ -31,6 +31,7 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
     lateinit var mCategoryViewModel: CategoryViewModel
     private val adapter by lazy { CategoryAdapter(this) }
     override var addToDbBehavior: AddToDbBehavior = AddCategoryToDb()
+    override var updateBehavior: UpdateBehavior = UpdateCategory()
     private val TAG = "CategoriesFragment"
 
     override fun onCreateView(
@@ -92,7 +93,8 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
                     true
                 }
                 R.id.context_update -> {
-                    updateCategoryDialog(category)
+                    //updateCategoryDialog(category)
+                    performUpdate(requireContext(), category, mCategoryViewModel, requireView())
                     true
                 }
                 else -> false
@@ -118,7 +120,7 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
      */
     private fun updateCategoryDialog(oldCategory: Category) {
         val dialogView = layoutInflater.inflate(R.layout.update_category_dialog, null)
-        val editText = dialogView.findViewById(R.id.edit_text_update_category_dialog) as EditText
+        val editText = dialogView.findViewById(R.id.et_update_category_dialog) as EditText
         editText.setText(oldCategory.category)
         val updateCategoryDialog = AlertDialog.Builder(requireContext())
         updateCategoryDialog.setTitle("Update Category \"${oldCategory.category}\"")
