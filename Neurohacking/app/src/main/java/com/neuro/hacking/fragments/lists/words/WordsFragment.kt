@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -19,17 +18,20 @@ import com.neuro.hacking.databinding.FragmentWordsBinding
 import java.util.*
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.neuro.hacking.fragments.lists.behavior.classes.AddWordToDb
+import com.neuro.hacking.fragments.lists.behavior.interfaces.AddWordToDbBehavior
 import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.WordViewModelFactory
 import java.lang.Exception
 
-class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListener {
+class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentWordsBinding
     private val adapter by lazy { WordAdapter(this) }
     private lateinit var mWordViewModel: WordViewModel
     private val args: WordsFragmentArgs by navArgs()
     private val TAG = "WordsFragment"
+    override var addWordToDbBehavior: AddWordToDbBehavior = AddWordToDb()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +64,8 @@ class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListe
      */
     private fun fabAddWordListener(binding: FragmentWordsBinding) {
         binding.fabAddWord.setOnClickListener {
-            insertWordToDbDialog()
+            //insertWordToDbDialog()
+            performAdd(requireContext(), args.categoryName, mWordViewModel, requireView())
         }
     }
 
@@ -143,9 +146,9 @@ class WordsFragment : Fragment(), WordClickListener, SearchView.OnQueryTextListe
     private fun insertWordToDbDialog() {
         val dialogView = layoutInflater.inflate(R.layout.add_word_to_db_dialog, null)
         val editTextNative =
-            dialogView.findViewById(R.id.edit_text_add_word_to_db_native) as EditText
+            dialogView.findViewById(R.id.et_add_word_to_db_native) as EditText
         val editTextTranslation =
-            dialogView.findViewById(R.id.edit_text_add_word_to_db_translation) as EditText
+            dialogView.findViewById(R.id.et_add_word_to_db_translation) as EditText
         val addWordDialog = AlertDialog.Builder(requireContext())
         addWordDialog.setTitle("Add word to category \"${args.categoryName}\".")
         //addCategoryDialog.setMessage("Enter new category name.")

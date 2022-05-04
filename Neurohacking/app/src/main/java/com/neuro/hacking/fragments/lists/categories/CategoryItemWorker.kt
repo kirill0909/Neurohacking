@@ -1,4 +1,4 @@
-package com.neuro.hacking.fragments.lists
+package com.neuro.hacking.fragments.lists.categories
 
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateCategoryBehavior
@@ -9,7 +9,7 @@ import com.neuro.hacking.viewmodel.CategoryViewModel
 import android.view.View
 import com.neuro.hacking.model.Category
 
-open class ItemWorker : Fragment() {
+open class CategoryItemWorker : Fragment() {
 
     open lateinit var addCategoryToDbBehavior: AddCategoryToDbBehavior
     open lateinit var updateCategoryBehavior: UpdateCategoryBehavior

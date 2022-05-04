@@ -25,7 +25,6 @@ class AddCategoryToDb : AddCategoryToDbBehavior {
     override fun addCategoryToDb(context: Context, categoryViewModel: CategoryViewModel, view: View) {
         addCategoryDialogBinding = AddCategoryDialogBinding.inflate(LayoutInflater.from(context))
 
-
         val dialog = AlertDialog.Builder(context)
             .setTitle("Creating a new category")
             .setView(addCategoryDialogBinding.root)

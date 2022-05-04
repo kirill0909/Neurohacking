@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.*
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.FragmentCategoriesBinding
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.CategoryViewModel
-import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
-import com.neuro.hacking.fragments.lists.ItemWorker
 import com.neuro.hacking.fragments.lists.behavior.classes.AddCategoryToDb
 import com.neuro.hacking.fragments.lists.behavior.classes.RemoveCategory
 import com.neuro.hacking.fragments.lists.behavior.classes.UpdateCategory
@@ -23,15 +20,14 @@ import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateCategoryBehav
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.RemoveCategoryBehavior
 
-class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
+class CategoriesFragment : CategoryItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentCategoriesBinding
-    lateinit var mCategoryViewModel: CategoryViewModel
+    private lateinit var mCategoryViewModel: CategoryViewModel
     private val adapter by lazy { CategoryAdapter(this) }
     override var addCategoryToDbBehavior: AddCategoryToDbBehavior = AddCategoryToDb()
     override var updateCategoryBehavior: UpdateCategoryBehavior = UpdateCategory()
     override var removeCategoryBehavior: RemoveCategoryBehavior = RemoveCategory()
-    private val TAG = "CategoriesFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +80,6 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.context_delete -> {
-                    //deleteCategoryDialog(category)
                     performRemove(requireContext(), category, mCategoryViewModel, requireView())
                     true
                 }
@@ -104,32 +99,11 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
             mPopup.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
                 .invoke(mPopup, true)
         } catch (e: Exception) {
-            Log.d(TAG, "Error showing menu icons", e)
+            Log.d("CategoriesFragment", "Error showing menu icons", e)
         } finally {
             popupMenu.show()
         }
     }
-
-
-    /*
-    *This method show alert dialog before category removing
-     */
-    private fun deleteCategoryDialog(category: Category) {
-        val dialogView = layoutInflater.inflate(R.layout.delete_category_dialog, null)
-        val deleteCategoryDialog = AlertDialog.Builder(requireContext())
-        deleteCategoryDialog.setTitle("Are you sure you want to delete category \"${category.category}\"?")
-        deleteCategoryDialog.setView(dialogView)
-
-        deleteCategoryDialog.setPositiveButton("Delete") { _, _ ->
-            mCategoryViewModel.deleteCategory(category)
-            mCategoryViewModel.deleteWordByCategoryName(category.category)
-            showSnackBar("Category \"${category.category}\" was deleted", requireView())
-        }
-        deleteCategoryDialog.setNegativeButton("Cancel") { _, _ -> }
-
-        deleteCategoryDialog.show()
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 
@@ -165,19 +139,4 @@ class CategoriesFragment : ItemWorker(), CategoryClickListener, SearchView.OnQue
             }
         }
     }
-
-    /*
-        *this method show snackBar
-     */
-    private fun showSnackBar(message: String, view: View) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    /*
-        *this method show notification
-
-    private fun toast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-     */
 }
