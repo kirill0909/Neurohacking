@@ -19,7 +19,9 @@ import java.util.*
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.neuro.hacking.fragments.lists.behavior.classes.AddWordToDb
+import com.neuro.hacking.fragments.lists.behavior.classes.UpdateWord
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddWordToDbBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateWordBehavior
 import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.WordViewModelFactory
 import java.lang.Exception
@@ -32,6 +34,7 @@ class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTex
     private val args: WordsFragmentArgs by navArgs()
     private val TAG = "WordsFragment"
     override var addWordToDbBehavior: AddWordToDbBehavior = AddWordToDb()
+    override var updateWordBehavior: UpdateWordBehavior = UpdateWord()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +89,7 @@ class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTex
                     true
                 }
                 R.id.context_update -> {
-                    updateWord(word)
+                    performUpdate(requireContext(), word, mWordViewModel)
                     true
                 }
                 else -> false
@@ -112,8 +115,8 @@ class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTex
      */
     private fun updateWord(word: Word) {
         val dialogView = layoutInflater.inflate(R.layout.update_word_dialog, null)
-        val editTextNative = dialogView.findViewById(R.id.edit_text_update_word_dialog_native) as EditText
-        val editTextTranslation = dialogView.findViewById(R.id.edit_text_update_word_dialog_translation) as EditText
+        val editTextNative = dialogView.findViewById(R.id.et_update_word_dialog_native) as EditText
+        val editTextTranslation = dialogView.findViewById(R.id.et_update_word_dialog_translation) as EditText
         editTextNative.setText(word.word)
         editTextTranslation.setText(word.translation)
         val updateWordDialog = AlertDialog.Builder(requireContext())
