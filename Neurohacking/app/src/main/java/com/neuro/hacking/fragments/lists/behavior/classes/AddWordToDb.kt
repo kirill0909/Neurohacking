@@ -43,7 +43,7 @@ class AddWordToDb : AddWordToDbBehavior {
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
                 val wordTranslation = binding.etAddWordToDbTranslation.text.toString().trim()
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-                if (checkInput(wordNative, wordTranslation)) {
+                if (checkInput(wordNative, wordTranslation) && checkDuplicate(wordNative, wordViewModel)) {
                     val word = Word(0, wordNative, wordTranslation, category)
                     wordViewModel.addWord(word)
                     showSnackBar("Word ${word.word} was add to category $category", view)
@@ -66,6 +66,13 @@ class AddWordToDb : AddWordToDbBehavior {
     private fun getInputMethodManager(view: View): InputMethodManager {
         val context = view.context
         return context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    /*
+    *This method check duplicate inside word table before add word to it
+     */
+    private fun checkDuplicate(wordNative: String, wordViewModel: WordViewModel): Boolean {
+        return wordViewModel.wordsByCategory.value?.map { it.word }?.contains(wordNative) != true
     }
 
     /*

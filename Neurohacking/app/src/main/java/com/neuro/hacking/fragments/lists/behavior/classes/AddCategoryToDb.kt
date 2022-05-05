@@ -4,6 +4,7 @@ import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBeha
 import android.content.Context
 import android.content.DialogInterface
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -39,12 +40,12 @@ class AddCategoryToDb : AddCategoryToDbBehavior {
                 val categoryName =
                     addCategoryDialogBinding.edAddCategoryDialog.text.toString().trim()
                         .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-                if (checkInput(categoryName)) {
+                if (checkInput(categoryName) && checkDuplicate(categoryName, categoryViewModel)) {
                     val category = Category(0, categoryName)
                     categoryViewModel.addCategory(category)
                     showSnackBar("Category \"${category.category}\" was successfully created", view)
                 } else {
-                    addCategoryDialogBinding.edAddCategoryDialog.error = "Value is empty"
+                    addCategoryDialogBinding.edAddCategoryDialog.error = "Invalid data"
                     return@setOnClickListener
                 }
                 dialog.dismiss()
@@ -52,6 +53,13 @@ class AddCategoryToDb : AddCategoryToDbBehavior {
         }
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         dialog.show()
+    }
+
+    /*
+    *This method check duplicate inside category table before add category to it
+     */
+    private fun checkDuplicate(category: String, categoryViewModel: CategoryViewModel): Boolean {
+        return categoryViewModel.allCategories.value?.map { it.category}?.contains(category) != true
     }
 
     private fun showKeyBoard(view: View) {
