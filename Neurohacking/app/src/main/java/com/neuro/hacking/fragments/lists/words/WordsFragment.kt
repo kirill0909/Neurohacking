@@ -64,7 +64,6 @@ class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTex
      */
     private fun fabAddWordListener(binding: FragmentWordsBinding) {
         binding.fabAddWord.setOnClickListener {
-            //insertWordToDbDialog()
             performAdd(requireContext(), args.categoryName, mWordViewModel, requireView())
         }
     }

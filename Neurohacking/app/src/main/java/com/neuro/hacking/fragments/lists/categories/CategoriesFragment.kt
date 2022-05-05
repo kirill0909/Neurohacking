@@ -14,13 +14,18 @@ import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.CategoryViewModel
 import java.lang.Exception
 import com.neuro.hacking.fragments.lists.behavior.classes.AddCategoryToDb
+import com.neuro.hacking.fragments.lists.behavior.classes.AddWordToDb
 import com.neuro.hacking.fragments.lists.behavior.classes.RemoveCategory
 import com.neuro.hacking.fragments.lists.behavior.classes.UpdateCategory
 import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateCategoryBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddCategoryToDbBehavior
+import com.neuro.hacking.fragments.lists.behavior.interfaces.AddWordToDbBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.RemoveCategoryBehavior
+import com.neuro.hacking.viewmodel.WordViewModel
+import com.neuro.hacking.viewmodel.WordViewModelFactory
 
-class CategoriesFragment : CategoryItemWorker(), CategoryClickListener, SearchView.OnQueryTextListener {
+class CategoriesFragment : CategoryItemWorker(), CategoryClickListener,
+    SearchView.OnQueryTextListener {
 
     private lateinit var binding: FragmentCategoriesBinding
     private lateinit var mCategoryViewModel: CategoryViewModel
@@ -28,6 +33,7 @@ class CategoriesFragment : CategoryItemWorker(), CategoryClickListener, SearchVi
     override var addCategoryToDbBehavior: AddCategoryToDbBehavior = AddCategoryToDb()
     override var updateCategoryBehavior: UpdateCategoryBehavior = UpdateCategory()
     override var removeCategoryBehavior: RemoveCategoryBehavior = RemoveCategory()
+    override var addWordToDbBehavior: AddWordToDbBehavior = AddWordToDb()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +78,17 @@ class CategoriesFragment : CategoryItemWorker(), CategoryClickListener, SearchVi
     }
 
     /*
+    *This method allows you to add words to a category from a list of categories.
+    * WordViewModel is needed here only for this.
+     */
+    private fun addWordFromCategoryList(category: Category) {
+        val viewModelWordFactory = WordViewModelFactory(category.category)
+        val mWordViewModel =
+            ViewModelProvider(this, viewModelWordFactory)[WordViewModel::class.java]
+        performAddWord(requireContext(), category.category, mWordViewModel, requireView())
+    }
+
+    /*
     *Show popup menu and
     * processing click on the item inside popup menu
      */
@@ -85,6 +102,10 @@ class CategoriesFragment : CategoryItemWorker(), CategoryClickListener, SearchVi
                 }
                 R.id.context_update -> {
                     performUpdate(requireContext(), category, mCategoryViewModel, requireView())
+                    true
+                }
+                R.id.context_add_word -> {
+                    addWordFromCategoryList(category)
                     true
                 }
                 else -> false

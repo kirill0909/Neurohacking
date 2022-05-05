@@ -16,5 +16,11 @@
         android:background="#FF0000"
         android:icon="@drawable/ic_delete"
         />
-
+    <item
+        android:id="@+id/context_add_word"
+        android:title="Add Word"
+        app:showAsAction="never"
+        android:background="#FF0000"
+        android:icon="@drawable/ic_word_add"
+        />
 </menu>
