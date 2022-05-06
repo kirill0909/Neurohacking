@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     app:layout_scrollFlags="scroll|enterAlways"
-    style="@style/Widget.MaterialComponents.Toolbar.Primary">
+    android:background="?attr/colorPrimary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 </com.google.android.material.appbar.MaterialToolbar>

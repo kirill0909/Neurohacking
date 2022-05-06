@@ -9,6 +9,9 @@ import com.neuro.hacking.R
 import com.neuro.hacking.viewmodel.TrainingViewModel
 import com.neuro.hacking.databinding.FragmentTrainingBinding
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
+import com.neuro.hacking.fragments.lists.words.WordsFragmentDirections
 
 class TrainingFragment : Fragment() {
 
@@ -48,7 +51,12 @@ class TrainingFragment : Fragment() {
             binding.tvTranslationWord.text = word.translation
         }
 
-        activity?.title = mTrainingViewModel.title
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbarMain.root)
+        (activity as AppCompatActivity).supportActionBar?.title = mTrainingViewModel.title
+        binding.toolbarMain.root.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbarMain.root.setNavigationOnClickListener {
+            findNavController().navigate(TrainingFragmentDirections.actionTrainingFragmentToListFragment())
+        }
 
         binding.submitButton.setOnClickListener { onSubmitButton() }
         binding.skipButton.setOnClickListener { onSkipButton() }

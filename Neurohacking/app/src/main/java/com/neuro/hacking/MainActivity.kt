@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //set support action bar
-        setSupportActionBar(binding.toolbarMain.root)
+        //setSupportActionBar(binding.toolbarMain.root)
 
         //get link on the nav host fragment and get controller for it
         val navHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHost.navController
         val builder = AppBarConfiguration.Builder(navController.graph)
         val appBarConfiguration = builder.build()
-        binding.toolbarMain.root.setupWithNavController(navController, appBarConfiguration)
+        //binding.toolbarMain.root.setupWithNavController(navController, appBarConfiguration)
         //set navigation between bottom bar icons
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_bar)
         bottomNavView.setupWithNavController(navController)

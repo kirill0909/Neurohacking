@@ -18,7 +18,11 @@
         android:id="@+id/training_fragment"
         android:name="com.neuro.hacking.fragments.training.TrainingFragment"
         android:label="Training"
-        tools:layout="@layout/fragment_training" />
+        tools:layout="@layout/fragment_training" >
+        <action
+            android:id="@+id/action_training_fragment_to_list_fragment"
+            app:destination="@id/list_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/words_fragment"
         android:name="com.neuro.hacking.fragments.lists.words.WordsFragment"
@@ -28,10 +32,17 @@
             android:name="categoryName"
             app:argType="string"
             />
+        <action
+            android:id="@+id/action_words_fragment_to_list_fragment"
+            app:destination="@id/list_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/help_fragment"
-        android:name="com.neuro.hacking.fragments.help.HelpFragment"
+        android:id="@+id/about_fragment"
+        android:name="com.neuro.hacking.fragments.about.AboutFragment"
         android:label="Help"
-        tools:layout="@layout/fragment_help" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_about_fragment_to_list_fragment"
+            app:destination="@id/list_fragment" />
+    </fragment>
 </navigation>

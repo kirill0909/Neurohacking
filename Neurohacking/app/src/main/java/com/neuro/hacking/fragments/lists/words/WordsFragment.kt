@@ -4,25 +4,23 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neuro.hacking.R
 import com.neuro.hacking.viewmodel.WordViewModel
 import com.neuro.hacking.model.Word
 import com.neuro.hacking.databinding.FragmentWordsBinding
-import java.util.*
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.neuro.hacking.fragments.lists.behavior.classes.AddWordToDb
 import com.neuro.hacking.fragments.lists.behavior.classes.UpdateWord
 import com.neuro.hacking.fragments.lists.behavior.interfaces.AddWordToDbBehavior
 import com.neuro.hacking.fragments.lists.behavior.interfaces.UpdateWordBehavior
-import com.neuro.hacking.model.Category
 import com.neuro.hacking.viewmodel.WordViewModelFactory
 import java.lang.Exception
 
@@ -54,7 +52,12 @@ class WordsFragment : WordItemWorker(), WordClickListener, SearchView.OnQueryTex
         }
 
         mWordViewModel.title = args.categoryName
-        activity?.title = mWordViewModel.title
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbarMain.root)
+        (activity as AppCompatActivity).supportActionBar?.title = mWordViewModel.title
+        binding.toolbarMain.root.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbarMain.root.setNavigationOnClickListener {
+            findNavController().navigate(WordsFragmentDirections.actionWordsFragmentToListFragment())
+        }
 
         setHasOptionsMenu(true)
 

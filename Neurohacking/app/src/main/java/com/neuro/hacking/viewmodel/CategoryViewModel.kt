@@ -17,6 +17,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
 
     val allCategories: LiveData<List<Category>>
     private val repository: CategoryRepository
+    val title = "Neurohacking"
 
     init {
         val categoryDao = AppDatabase.getDatabase(application).categoryDao()

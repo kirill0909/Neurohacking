@@ -2,7 +2,7 @@
     <string name="app_name">Neurohacking</string>
     <string name="list_categories">Categories List</string>
     <string name="training">Training</string>
-    <string name="help">Help</string>
+    <string name="about">About</string>
     <string name="floating_button_category_name">FAB</string>
     <string name="floating_button_word">FAB</string>
     <string name="edit_text_add_category_dialog">Enter a new category name</string>

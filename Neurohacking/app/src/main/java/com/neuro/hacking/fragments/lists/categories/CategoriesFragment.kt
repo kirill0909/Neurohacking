@@ -3,10 +3,12 @@ package com.neuro.hacking.fragments.lists.categories
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import com.neuro.hacking.R
 import com.neuro.hacking.databinding.FragmentCategoriesBinding
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
+import androidx.core.graphics.toColorInt
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +52,9 @@ class CategoriesFragment : CategoryItemWorker(), CategoryClickListener,
         mCategoryViewModel.allCategories.observe(viewLifecycleOwner) { category ->
             adapter.setData(category)
         }
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbarMain.root)
+        (activity as AppCompatActivity).supportActionBar?.title = mCategoryViewModel.title
 
         setHasOptionsMenu(true)
 
