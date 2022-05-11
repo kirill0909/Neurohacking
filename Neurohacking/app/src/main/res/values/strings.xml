@@ -24,5 +24,11 @@
     <string name="score">Score: 0</string>
     <string name="instructions">Enter the translation</string>
     <string name="select_category">Select category</string>
-
+    <string name="about_1">Neurohacking is one on the innovative approaches that allows you to improve the functioning on the brain in order to become more productive, strengthen health and improve the overall quality of life.</string>
+    <string name="about_2">Using this application you will be able to develop your neural connections while learning a foreign language.</string>
+    <string name="about_3">Launching the application for the first time you will see the prepared categories, here you can also add, delete or update any other category</string>
+    <string name="about_4">To add a new category, click the floating button in the lower right corner of the screen. You will see a dialog box in which you need to enter the name of the new category</string>
+    <string name="about_5">To rename or delete a category, click on the advanced button, and you will see a pop-up menu where you cal select an action. You can also add a word to a cateogry by selecting the appropriate action. Or click on a category then you will see a list of words and you can add a word here</string>
+    <string name="about_6">In order to learn the words you have prepared or written, click the training tab in the lower menu. If you do not remember how the word is translated, you can skip it or click on the word and you will see a hint</string>
+    <string name="about_7">To change the category, click on the advanced button in the upper right corner and select the desired category</string>
 </resources>
