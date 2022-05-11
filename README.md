@@ -4,6 +4,7 @@ health and improve the overall quality of life.
 Using this application you will be able to develop your neural connections while learning a foreign language.
 
 Launching the application for the first time you will see the prepared categories, here you can also add, delete or update any other category:
+
 ![screenshot_categories](https://user-images.githubusercontent.com/83659126/167780394-afa7e051-46f9-4d0b-962b-36cceb2fde07.jpg)
 
 To add a new category, click the floating button in the lower right corner of the screen. You will see a dialog box in which you need to enter the name of
