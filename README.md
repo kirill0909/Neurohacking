@@ -20,8 +20,8 @@ cateogry by selecting the appropriate action. Or click on a category then you wi
 In order to learn the words you have prepared or written, click the training tab in the lower menu. If you do not remember how the word is translated, you
 can skip it or click on the word and you will see a hint:
 
-![screenshot_training](https://user-images.githubusercontent.com/83659126/167781142-43317887-ac5f-4f90-abf2-0dda674676ab.jpg)
+![screen_training_right](https://user-images.githubusercontent.com/83659126/167785314-5fae1dfa-a1ee-400d-b7ec-c06eef2ee7e0.jpg)
 
 To change the category, click on the advanced button in the upper right corner and select the desired category:
 
-![screen_training_right](https://user-images.githubusercontent.com/83659126/167784996-945cb431-2953-421a-b5c7-918ba7a78ba3.jpg)
+![screenshot_training_category](https://user-images.githubusercontent.com/83659126/167785238-ef6dd3fa-d5c8-4af2-817c-520a79c05a9b.jpg)
