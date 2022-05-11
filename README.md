@@ -24,4 +24,4 @@ can skip it or click on the word and you will see a hint:
 
 To change the category, click on the advanced button in the upper right corner and select the desired category:
 
-![screenshot_training_category](https://user-images.githubusercontent.com/83659126/167781360-02582694-d46d-4be0-806b-6b162a3129d5.jpg)
+![screen_training_right](https://user-images.githubusercontent.com/83659126/167784996-945cb431-2953-421a-b5c7-918ba7a78ba3.jpg)
