@@ -23,6 +23,12 @@
     <string name="correct">"Correct: %d"</string>
     <string name="score">Score: 0</string>
     <string name="instructions">Enter the translation</string>
+    <string name="brain_description">Collapsing image</string>
+    <string name="categories_description">Categories image</string>
+    <string name="new_categories_description">New Categorry image</string>
+    <string name="poup_categories_description">Popup category image</string>
+    <string name="trainig_description">Training image</string>
+    <string name="trainig_category_description">Trainig category image</string>
     <string name="select_category">Select category</string>
     <string name="about_1">Neurohacking is one on the innovative approaches that allows you to improve the functioning on the brain in order to become more productive, strengthen health and improve the overall quality of life.</string>
     <string name="about_2">Using this application you will be able to develop your neural connections while learning a foreign language.</string>

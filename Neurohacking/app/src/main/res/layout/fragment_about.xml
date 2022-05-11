@@ -22,6 +22,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/brain"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/brain_description"
                 app:layout_collapseMode="parallax"
                 />
 
@@ -75,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/screen_categories"
+                android:contentDescription="@string/categories_description"
                 android:scaleType="centerCrop"
                 />
 
@@ -90,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/screenshot_new_category"
+                android:contentDescription="@string/new_categories_description"
                 android:scaleType="centerCrop"
                 />
 
@@ -105,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/screenshot_popup_category"
+                android:contentDescription="@string/poup_categories_description"
                 android:scaleType="centerCrop"
                 />
 
@@ -122,6 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/screen_training_right"
+                android:contentDescription="@string/trainig_description"
                 android:scaleType="centerCrop"
                 />
 
@@ -139,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/screenshot_training_category"
+                android:contentDescription="@string/trainig_category_description"
                 android:scaleType="centerCrop"
                 />
 
