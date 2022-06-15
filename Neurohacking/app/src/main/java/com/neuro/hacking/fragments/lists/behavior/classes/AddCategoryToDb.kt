@@ -80,7 +80,7 @@ class AddCategoryToDb : AddCategoryToDbBehavior {
     /*
       *this method check user input
     */
-    private fun checkInput(categoryName: String): Boolean {
+     private fun checkInput(categoryName: String): Boolean {
         return !(TextUtils.isEmpty(categoryName))
     }
 
