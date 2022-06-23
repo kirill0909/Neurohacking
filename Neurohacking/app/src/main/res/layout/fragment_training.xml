@@ -53,47 +53,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:text="@string/category"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_word_count"
+            app:layout_constraintTop_toBottomOf="@+id/tv_incorrect"
             tools:text="Category: Body" />
-
 
         <TextView
             android:id="@+id/tv_incorrect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
             android:text="@string/incorrect"
             android:textSize="17sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_main"
-            tools:layout_editor_absoluteY="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_word_count"
             tools:text="Incorrect: 4" />
-
-        <TextView
-            android:id="@+id/tv_correct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:text="@string/correct"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_incorrect"
-            tools:text="Correct: 22" />
 
         <TextView
             android:id="@+id/tv_translation_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="90dp"
             android:textSize="35sp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"

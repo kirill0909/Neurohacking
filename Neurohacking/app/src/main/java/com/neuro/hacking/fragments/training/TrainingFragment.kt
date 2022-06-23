@@ -43,10 +43,6 @@ class TrainingFragment : Fragment() {
             binding.tvIncorrect.text = getString(R.string.incorrect, incorrect)
         }
 
-        mTrainingViewModel.correct.observe(viewLifecycleOwner) { correct ->
-            binding.tvCorrect.text = getString(R.string.correct, correct)
-        }
-
         mTrainingViewModel.currentWord.observe(viewLifecycleOwner) { word ->
             binding.tvTranslationWord.text = word.translation
         }

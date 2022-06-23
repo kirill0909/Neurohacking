@@ -43,10 +43,6 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
     val incorrect: LiveData<Int>
         get() = _incorrect
 
-    private var _correct = MutableLiveData<Int>(0)
-    val correct: LiveData<Int>
-        get() = _correct
-
     private var _currentWord = MutableLiveData<Word>()
     val currentWord: LiveData<Word>
         get() = _currentWord
@@ -72,7 +68,7 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
             _wordCount.value = 0
             _numberOfWords.value = getNumberWords(_words)
             _incorrect.value = 0
-            _correct.value = 0
+            //_correct.value = 0
             _currentWord.value = getRandomWord(_words)
 
 
@@ -179,7 +175,7 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
         _numberOfWords.value = numberOfWords//getNumberWords(_words)
         _wordCount.value = wordCount//0
         _incorrect.value = incorrectValue//0
-        _correct.value = correctValue//0
+        //_correct.value = correctValue//0
         _currentWord.value = currentWord//getRandomWord(_words)
     }
 
@@ -214,7 +210,7 @@ class TrainingViewModel(application: Application) : AndroidViewModel(application
      */
     private fun inCreasePositiveIndicators() {
         _wordCount.value = (_wordCount.value)?.plus(1)
-        _correct.value = (_correct.value)?.plus(1)
+       // _correct.value = (_correct.value)?.plus(1)
     }
 
     /*
